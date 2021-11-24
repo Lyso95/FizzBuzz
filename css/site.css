@@ -1,6 +1,6 @@
 :root{
     --primary-color: #bb2020;
-    --secondary-color: #bb993b;
+    --secondary-color: #bb2020;
     --dark-color: #292929;
     --white-color: #e7e7e7;
 }
@@ -72,4 +72,18 @@ pre[class*="language-"] {
 .logo{
     width: 250px;
     height: auto;
+}
+
+.Fizz{
+    color: var(--primary-color);
+    font-style: italic;
+}
+.Buzz{
+    color: darkblue;
+    font-style: italic;
+}
+.FizzBuzz{
+    color: green;
+    font-weight: bold;
+    font-style: italic;
 }
