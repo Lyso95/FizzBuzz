@@ -47,21 +47,118 @@
 <!--MAIN SECTION -->
 <main class="flex-shrink-0">
     <div class="container py-4 px-5">
-        <h1 class="border-1 border-bottom border-dark mt-5">The Code for FizzBuzz.</h1>
+        <h1 class="border-1 border-bottom border-dark mt-5">Der Code von FizzBuzz</h1>
         <div class="row row-cols-1 row-cols-lg-2">
             <div class="col-lg-8">
                 <pre class="line-numbers"><code class="lang-javascript">
-                    //Call Hello World
-                    function helloWorld(){
-                          alert("Hello World");
-                        }</code></pre>
+                    //controller
+                    function getValues(){
+
+                        //get Fizz- and Buzzvalue
+                        let fizzValue = document.getElementById("fizzValue").value;
+                        let buzzValue = document.getElementById("buzzValue").value;
+
+                        // parse into Integers
+                        fizzValue = parseInt(fizzValue);
+                        buzzValue = parseInt(buzzValue);
+
+                        if (Number.isInteger(fizzValue) && Number.isInteger(buzzValue)) {
+                            
+                            //call fizzBuzz
+                            let fbData = fizzBuzz(fizzValue,buzzValue);
+                            
+                            //call displayNumbers
+                            displayData(fbData);
+
+                        } else {
+
+                            alert("Bitte gib hier nur Gannzzahlen ein!");
+                        }
+                    }
+
+
+                    //Solve FizzBuzz
+                    function fizzBuzz(fizzValue, buzzValue) {
+                        let solution = [];
+
+                        //loop 1-100
+                        for (let i = 1; i <= 100; i++) {
+                            
+                            //check if fizz or buzz divisible and return to solution
+                            if (i % fizzValue == 0 && i % buzzValue == 0) {
+                            solution.push('FizzBuzz'); 
+                            } else if (i % fizzValue == 0) {
+                                solution.push('Fizz');
+                            } else if (i % buzzValue == 0) {
+                                solution.push('Buzz');
+                            } else {
+                                solution.push(i);
+                            }
+                        }
+                        return solution;
+                    }
+
+                    //loop over the array and create a tablerow for each item.
+                    function displayData(fbData){
+
+                        //get table body element
+                        let tableBody = document.getElementById("results");
+
+                        //get template row
+                        let templateRow = document.getElementById("fbTemplate");
+
+                        //clear table
+                        tableBody.innerHTML = "";
+
+                        for (let i = 0; i < fbData.length; i += 5) {
+
+                            let tableRow = document.importNode(templateRow.content, true);
+                            //grab use the tds to put into array
+                            let rowCols = tableRow.querySelectorAll("td");
+
+                            rowCols[0].classList.add(fbData[i]);
+                            rowCols[0].textContent = fbData[i];
+                            
+                            rowCols[1].classList.add(fbData[i+1]);
+                            rowCols[1].textContent = fbData[i+1];
+                        
+                            rowCols[2].classList.add(fbData[i+2]);
+                            rowCols[2].textContent = fbData[i+2];
+                        
+                            rowCols[3].classList.add(fbData[i+3]);
+                            rowCols[3].textContent = fbData[i+3];
+                        
+                            rowCols[4].classList.add(fbData[i+4]);
+                            rowCols[4].textContent = fbData[i+4];
+
+                            tableBody.appendChild(tableRow);
+                        }
+                    }
+                </code></pre>
             </div>
             <div class="col-lg-4">
                 <p>
-                    The Code is structured in one function.
+                    Der Code ist in 3 Funktionen gefasst.
                 </p>
-                <h3>Hello World</h3>
-                <p>Hello World is a function that displays an alert with a message of "Hello World"</p>
+                <h3>FizzBuzz</h3>
+                <p>
+                    <strong>Die Modellfunktion (getValues):</strong><br>
+                    Bekommt Daten von der HTML-Seite und kontrolliert ob Werte korrekt als Ganzzahl eingegeben wurden, 
+                    wenn nicht (else) wird ein "alert" aufgerufen.
+                    Wenn alles in Ordnung ist, ruft der Controller die Modell-Funktion (fbData) auf und übergibt die Daten aus der Funktion an
+                    die View-Funktion (displayData).
+                </p>
+                <p><strong>Die Controllerfunktion (fizzBuzz):</strong><br>
+                    Übernimmt die beiden Daten (fizzValue, buzzValue) von der Modellfunktion, prüft diese in
+                    einer Schleife (loop) von 1-100 gegen und speichert die Ergebnisse in einem Array (solution) 
+                    entweder als Text "FizzBuzz", "Fizz", "Buzz" oder als Zahl darin.
+                </p>
+                <p><strong>Die Viewfunktion(displayData):</strong><br>
+                    Übernimmt die Daten als Array (fbData) über das Modell (getValues) indirekt aus der Controllerfunktion(fizzBuzz).
+                    Und gibt diese ebenfalls über eine Schleife (loop) über ein vorgefertigtes "Template" weiter,
+                    dabei wird eine entsprechende Klasse (die im CSS-Dokument hinterlegt ist) und der Wert selbst
+                    aus dem Array (fbData) hinzugefügt.  
+                </p>
             </div>
         </div>
     </div>
